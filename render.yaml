@@ -1,0 +1,19 @@
+# Configuração de publicação no Render (Blueprint).
+# O banco PostgreSQL fica no Neon (gratuito e sem prazo de expiração);
+# a URL de conexão é pedida pelo Render na hora de criar o serviço.
+services:
+  - type: web
+    name: alerta-vizinhos
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: TZ
+        value: America/Sao_Paulo
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
