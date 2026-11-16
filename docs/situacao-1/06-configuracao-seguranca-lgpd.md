@@ -19,7 +19,7 @@
 | Senhas e chaves no código | A URL do banco e a chave secreta ficam em variáveis de ambiente, fora do repositório. |
 
 **Limitações conhecidas (versões futuras):**
-- Não há login: qualquer pessoa com o link pode editar ou excluir ocorrências (issue #7).
+- Não há login: qualquer pessoa com o link pode editar ou excluir ocorrências (problema P03 do [laudo de qualidade](../situacao-3/laudo-de-qualidade.md)).
 - O nome é texto livre, então é possível registrar em nome de outra pessoa (depende do login).
 - Não há limite de envios por pessoa (proteção contra spam).
 - A exclusão é definitiva, sem histórico para recuperar.
