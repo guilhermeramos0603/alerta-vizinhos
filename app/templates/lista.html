@@ -3,51 +3,60 @@
 {% block conteudo %}
 <h1>Ocorrências registradas</h1>
 
-<form class="filtro" method="get" action="{{ url_for('ocorrencias.listar') }}">
-  <label>Tipo
-    <select name="tipo">
-      <option value="">Todos</option>
-      {% for t in tipos %}
-        <option value="{{ t }}" {% if filtro.tipo == t %}selected{% endif %}>{{ t }}</option>
-      {% endfor %}
-    </select>
-  </label>
-  <label>De
-    <input type="date" name="de" value="{{ filtro.de }}">
-  </label>
-  <label>Até
-    <input type="date" name="ate" value="{{ filtro.ate }}">
-  </label>
-  <div class="filtro-botoes">
-    <button type="submit" class="botao">Filtrar</button>
-    <a href="{{ url_for('ocorrencias.listar') }}" class="botao botao-secundario">Limpar</a>
-  </div>
-</form>
+<details class="filtro-caixa" data-abrir-no-computador {% if filtro_ativo %}open{% endif %}>
+  <summary>Filtrar e buscar{% if filtro_ativo %} (filtro ativo){% endif %}</summary>
+  <form class="filtro" method="get" action="{{ url_for('ocorrencias.listar') }}">
+    <label>Buscar palavra
+      <input type="search" name="q" value="{{ filtro.q }}" placeholder="Ex.: galpão, motobomba">
+    </label>
+    <label>Tipo
+      <select name="tipo">
+        <option value="">Todos</option>
+        {% for t in tipos %}
+          <option value="{{ t }}" {% if filtro.tipo == t %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Aconteceu de
+      <input type="date" name="de" value="{{ filtro.de }}">
+    </label>
+    <label>Até
+      <input type="date" name="ate" value="{{ filtro.ate }}">
+    </label>
+    <div class="filtro-botoes">
+      <button type="submit" class="botao">Filtrar</button>
+      <a href="{{ url_for('ocorrencias.listar') }}" class="botao botao-secundario">Limpar</a>
+    </div>
+  </form>
+</details>
 
 {% if aviso %}
   <div class="alerta alerta-erro" role="status">{{ aviso }}</div>
 {% endif %}
 
-<p class="contagem">{{ ocorrencias|length }} ocorrência(s) encontrada(s)</p>
+<p class="contagem">{{ ocorrencias|length }} ocorrência(s) encontrada(s), as registradas mais recentemente primeiro</p>
 
 {% if ocorrencias %}
   <ul class="lista">
     {% for o in ocorrencias %}
-      <li class="cartao">
+      <li class="cartao cartao-clicavel">
         <div class="cartao-topo">
-          <span class="etiqueta">{{ o.tipo }}</span>
+          <span class="etiquetas">
+            <span class="etiqueta tipo-{{ o.classe_tipo }}">{{ o.tipo }}</span>
+            {% if o.eh_nova %}<span class="etiqueta novo">Novo</span>{% endif %}
+          </span>
           <time>{{ o.data_ocorrencia.strftime('%d/%m/%Y %H:%M') }}</time>
         </div>
         <strong>{{ o.local }}</strong>
         <p>{{ o.descricao|truncate(140) }}</p>
-        <a href="{{ url_for('ocorrencias.detalhe', id=o.id) }}">Ver detalhes</a>
+        <a class="ver-detalhes" href="{{ url_for('ocorrencias.detalhe', id=o.id) }}">Ver detalhes</a>
       </li>
     {% endfor %}
   </ul>
 {% else %}
   <div class="vazio">
     <p>Nenhuma ocorrência encontrada.</p>
-    <a class="botao" href="{{ url_for('ocorrencias.nova') }}">Registrar a primeira</a>
+    <a class="botao" href="{{ url_for('ocorrencias.nova') }}">Registrar ocorrência</a>
   </div>
 {% endif %}
 {% endblock %}

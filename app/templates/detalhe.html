@@ -5,7 +5,10 @@
 
 <article class="cartao detalhe">
   <div class="cartao-topo">
-    <span class="etiqueta">{{ ocorrencia.tipo }}</span>
+    <span class="etiquetas">
+      <span class="etiqueta tipo-{{ ocorrencia.classe_tipo }}">{{ ocorrencia.tipo }}</span>
+      {% if ocorrencia.eh_nova %}<span class="etiqueta novo">Novo</span>{% endif %}
+    </span>
     <time>{{ ocorrencia.data_ocorrencia.strftime('%d/%m/%Y %H:%M') }}</time>
   </div>
   <h1>{{ ocorrencia.local }}</h1>
@@ -13,12 +16,18 @@
   <dl>
     <dt>Registrado por</dt><dd>{{ ocorrencia.registrado_por }}</dd>
     <dt>Registrado em</dt><dd>{{ ocorrencia.criado_em.strftime('%d/%m/%Y %H:%M') }}</dd>
+    {% if ocorrencia.atualizado_em %}
+      <dt>Editado em</dt><dd>{{ ocorrencia.atualizado_em.strftime('%d/%m/%Y %H:%M') }}</dd>
+    {% endif %}
   </dl>
 
   <div class="acoes">
-    <a class="botao" href="{{ url_for('ocorrencias.editar', id=ocorrencia.id) }}">Editar</a>
+    <a class="botao botao-whatsapp" target="_blank" rel="noopener"
+       href="https://wa.me/?text={{ texto_whatsapp|urlencode }}">Compartilhar no WhatsApp</a>
+    <a class="botao botao-secundario" href="{{ url_for('ocorrencias.editar', id=ocorrencia.id) }}">Editar</a>
     <form method="post" action="{{ url_for('ocorrencias.excluir', id=ocorrencia.id) }}"
           data-confirmar="Tem certeza que deseja excluir esta ocorrência? Esta ação não pode ser desfeita.">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <button type="submit" class="botao botao-perigo">Excluir</button>
     </form>
   </div>

@@ -12,8 +12,11 @@
   </div>
 {% endif %}
 
-<form class="formulario" method="post"
+{# novalidate: todos os erros são mostrados pelo sistema, juntos, nesta mesma caixa. #}
+<form class="formulario" method="post" novalidate data-travar-envio
       action="{{ url_for('ocorrencias.editar', id=ocorrencia.id) if ocorrencia else url_for('ocorrencias.nova') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
   <label>Tipo *
     <select name="tipo" required>
       <option value="">Selecione...</option>
@@ -24,7 +27,10 @@
   </label>
 
   <label>Data e hora *
-    <input type="datetime-local" name="data_ocorrencia" required value="{{ valores.get('data_ocorrencia', '') }}">
+    <input type="datetime-local" name="data_ocorrencia" required
+           min="{{ limites.min }}" max="{{ limites.max }}"
+           value="{{ valores.get('data_ocorrencia', '') }}">
+    <small class="ajuda">Até 12 meses atrás. Já vem com o horário de agora.</small>
   </label>
 
   <label>Local *
@@ -34,10 +40,10 @@
   </label>
 
   <label>Descrição *
-    <textarea name="descricao" rows="5" minlength="10" maxlength="1000" required
+    <textarea name="descricao" rows="5" maxlength="1000" required
               data-contador="contador-descricao"
               placeholder="O que aconteceu? O que foi levado? Alguém viu algo?">{{ valores.get('descricao', '') }}</textarea>
-    <small id="contador-descricao" class="contador"></small>
+    <small id="contador-descricao" class="ajuda"></small>
   </label>
 
   <label>Seu nome (opcional)
@@ -47,7 +53,7 @@
   </label>
 
   <div class="acoes">
-    <button type="submit" class="botao">Salvar</button>
+    <button type="submit" class="botao" data-texto-enviando="Salvando...">Salvar</button>
     <a class="botao botao-secundario"
        href="{{ url_for('ocorrencias.detalhe', id=ocorrencia.id) if ocorrencia else url_for('ocorrencias.listar') }}">Cancelar</a>
   </div>
