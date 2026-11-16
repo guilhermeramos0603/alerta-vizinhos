@@ -1,0 +1,40 @@
+name: Relato de problema
+description: Algo não funcionou como esperado no Alerta Vizinhos
+title: "[Problema] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: o-que-aconteceu
+    attributes:
+      label: O que aconteceu?
+      description: Descreva o problema com suas palavras.
+    validations:
+      required: true
+  - type: textarea
+    id: passos
+    attributes:
+      label: Como reproduzir
+      placeholder: |
+        1. Abrir a página ...
+        2. Clicar em ...
+        3. Aparece ...
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: O que deveria acontecer?
+  - type: dropdown
+    id: dispositivo
+    attributes:
+      label: Dispositivo
+      options:
+        - Celular
+        - Computador
+    validations:
+      required: true
+  - type: textarea
+    id: prints
+    attributes:
+      label: Prints
+      description: Arraste as imagens da tela com o erro para cá.

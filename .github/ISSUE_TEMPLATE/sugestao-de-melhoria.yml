@@ -1,0 +1,16 @@
+name: Sugestão de melhoria
+description: Ideia para deixar o Alerta Vizinhos mais útil
+title: "[Melhoria] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: sugestao
+    attributes:
+      label: Qual é a sugestão?
+    validations:
+      required: true
+  - type: textarea
+    id: motivo
+    attributes:
+      label: Por que isso ajudaria?
+      description: Que problema dos moradores isso resolve?
