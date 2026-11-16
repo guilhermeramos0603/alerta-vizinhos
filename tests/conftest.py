@@ -9,7 +9,8 @@ from app.models import Ocorrencia, db
 @pytest.fixture
 def app():
     """Aplicação de teste com banco SQLite em memória (some ao fim de cada teste)."""
-    app = create_app({"TESTING": True, "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:"})
+    app = create_app({"TESTING": True, "WTF_CSRF_ENABLED": False,
+                      "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:"})
     yield app
     with app.app_context():
         db.drop_all()

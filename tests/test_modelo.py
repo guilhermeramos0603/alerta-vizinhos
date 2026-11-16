@@ -38,9 +38,33 @@ def test_local_obrigatorio():
     assert "Informe o local da ocorrência." in erros
 
 
-def test_data_invalida():
-    _, erros = Ocorrencia.validar(form_valido(data_ocorrencia="ontem à noite"))
+def test_data_vazia():
+    _, erros = Ocorrencia.validar(form_valido(data_ocorrencia=""))
     assert "Informe a data e a hora da ocorrência." in erros
+
+
+def test_data_invalida_tem_mensagem_propria():
+    # Ex.: ano com 5 dígitos digitado no campo de data do Chrome
+    _, erros = Ocorrencia.validar(form_valido(data_ocorrencia="20266-11-16T10:00"))
+    assert "Data inválida. Escolha a data e a hora pelo calendário." in erros
+    assert "Informe a data e a hora da ocorrência." not in erros
+
+
+def test_data_mais_antiga_que_12_meses():
+    antiga = (datetime.now() - timedelta(days=400)).strftime("%Y-%m-%dT%H:%M")
+    _, erros = Ocorrencia.validar(form_valido(data_ocorrencia=antiga))
+    assert "A data da ocorrência deve estar dentro dos últimos 12 meses." in erros
+
+
+def test_data_de_1900_e_recusada():
+    _, erros = Ocorrencia.validar(form_valido(data_ocorrencia="1900-01-01T10:00"))
+    assert "A data da ocorrência deve estar dentro dos últimos 12 meses." in erros
+
+
+def test_data_de_11_meses_atras_e_aceita():
+    dentro = (datetime.now() - timedelta(days=330)).strftime("%Y-%m-%dT%H:%M")
+    _, erros = Ocorrencia.validar(form_valido(data_ocorrencia=dentro))
+    assert erros == []
 
 
 def test_data_no_futuro():
