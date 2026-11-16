@@ -34,10 +34,11 @@ app/                 código da aplicação
   templates/         View: telas HTML
   static/            CSS e JavaScript
 tests/               testes automatizados (pytest)
+scripts/             popular_exemplos.py: ocorrências de exemplo para demonstração
 docs/
   situacao-1/        planejamento: escopo, histórias, UML, IHC, banco de dados, segurança
   situacao-2/        desenvolvimento: arquitetura e manual de uso
-  situacao-3/        validação: formulário de teste, laudo de qualidade e roteiro dos vídeos
+  situacao-3/        validação: formulário de teste, laudo de qualidade (com evidências) e roteiro dos vídeos
 ```
 
 ## Documentação
@@ -61,6 +62,7 @@ docs/
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+python scripts/popular_exemplos.py # opcional: grava 7 ocorrências de exemplo
 flask --app wsgi run --port 5050   # http://127.0.0.1:5050 (usa SQLite local)
 pytest                             # 36 testes
 ```
