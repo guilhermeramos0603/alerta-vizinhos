@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block conteudo %}
+<h1>{{ titulo }}</h1>
+
+{% if erros %}
+  <div class="alerta alerta-erro" role="alert">
+    <strong>Corrija os campos abaixo:</strong>
+    <ul>
+      {% for e in erros %}<li>{{ e }}</li>{% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<form class="formulario" method="post"
+      action="{{ url_for('ocorrencias.editar', id=ocorrencia.id) if ocorrencia else url_for('ocorrencias.nova') }}">
+  <label>Tipo *
+    <select name="tipo" required>
+      <option value="">Selecione...</option>
+      {% for t in tipos %}
+        <option value="{{ t }}" {% if valores.get('tipo') == t %}selected{% endif %}>{{ t }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  <label>Data e hora *
+    <input type="datetime-local" name="data_ocorrencia" required value="{{ valores.get('data_ocorrencia', '') }}">
+  </label>
+
+  <label>Local *
+    <input type="text" name="local" maxlength="120" required
+           placeholder="Ex.: Estrada da Colônia, perto do galpão do Sr. João"
+           value="{{ valores.get('local', '') }}">
+  </label>
+
+  <label>Descrição *
+    <textarea name="descricao" rows="5" minlength="10" maxlength="1000" required
+              data-contador="contador-descricao"
+              placeholder="O que aconteceu? O que foi levado? Alguém viu algo?">{{ valores.get('descricao', '') }}</textarea>
+    <small id="contador-descricao" class="contador"></small>
+  </label>
+
+  <label>Seu nome (opcional)
+    <input type="text" name="registrado_por" maxlength="80"
+           placeholder="Deixe em branco para registrar como Anônimo"
+           value="{{ valores.get('registrado_por', '') if valores.get('registrado_por') != 'Anônimo' else '' }}">
+  </label>
+
+  <div class="acoes">
+    <button type="submit" class="botao">Salvar</button>
+    <a class="botao botao-secundario"
+       href="{{ url_for('ocorrencias.detalhe', id=ocorrencia.id) if ocorrencia else url_for('ocorrencias.listar') }}">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

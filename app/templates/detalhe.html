@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}Ocorrência #{{ ocorrencia.id }}{% endblock %}
+{% block conteudo %}
+<p><a href="{{ url_for('ocorrencias.listar') }}">&larr; Voltar para a lista</a></p>
+
+<article class="cartao detalhe">
+  <div class="cartao-topo">
+    <span class="etiqueta">{{ ocorrencia.tipo }}</span>
+    <time>{{ ocorrencia.data_ocorrencia.strftime('%d/%m/%Y %H:%M') }}</time>
+  </div>
+  <h1>{{ ocorrencia.local }}</h1>
+  <p class="descricao">{{ ocorrencia.descricao }}</p>
+  <dl>
+    <dt>Registrado por</dt><dd>{{ ocorrencia.registrado_por }}</dd>
+    <dt>Registrado em</dt><dd>{{ ocorrencia.criado_em.strftime('%d/%m/%Y %H:%M') }}</dd>
+  </dl>
+
+  <div class="acoes">
+    <a class="botao" href="{{ url_for('ocorrencias.editar', id=ocorrencia.id) }}">Editar</a>
+    <form method="post" action="{{ url_for('ocorrencias.excluir', id=ocorrencia.id) }}"
+          data-confirmar="Tem certeza que deseja excluir esta ocorrência? Esta ação não pode ser desfeita.">
+      <button type="submit" class="botao botao-perigo">Excluir</button>
+    </form>
+  </div>
+</article>
+{% endblock %}

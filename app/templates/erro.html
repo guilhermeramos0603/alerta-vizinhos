@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block conteudo %}
+<div class="vazio">
+  <h1>{{ titulo }}</h1>
+  <p>{{ mensagem }}</p>
+  <a class="botao" href="{{ url_for('ocorrencias.listar') }}">Voltar para as ocorrências</a>
+</div>
+{% endblock %}
