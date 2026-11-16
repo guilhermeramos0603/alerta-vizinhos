@@ -7,3 +7,6 @@ instance/
 *.db
 .env
 .DS_Store
+
+# Respostas dos testadores (nomes de terceiros; não publicar)
+docs/situacao-3/respostas/

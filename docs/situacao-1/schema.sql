@@ -9,5 +9,6 @@ CREATE TABLE ocorrencia (
     data_ocorrencia  TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     registrado_por   VARCHAR(80)                 NOT NULL,
     criado_em        TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    atualizado_em    TIMESTAMP WITHOUT TIME ZONE,
     PRIMARY KEY (id)
 );

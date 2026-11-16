@@ -11,15 +11,17 @@ Projeto Integrador Transdisciplinar em Engenharia de Software II, de Guilherme S
 ## Funcionalidades
 
 - Registrar ocorrência (tipo, data e hora, local, descrição e nome opcional)
-- Listar ocorrências, das mais recentes para as mais antigas
-- Filtrar por tipo e por período
-- Ver detalhes, editar e excluir (com confirmação)
-- Validação dos dados e mensagens de erro claras
+- Listar ocorrências, das registradas mais recentemente para as mais antigas, com a marca "Novo" nas últimas 24 horas
+- Buscar por palavra e filtrar por tipo e por período
+- Ver detalhes, editar (com "Editado em") e excluir (com confirmação)
+- Compartilhar uma ocorrência no WhatsApp
+- Validação dos dados com todos os erros explicados juntos
+- Proteção contra CSRF e contra envio duplicado
 - Layout responsivo, para uso no celular
 
 ## Tecnologias
 
-Python 3.12 · Flask · SQLAlchemy · PostgreSQL · HTML, CSS e JavaScript · pytest · Render (hospedagem) · Neon (banco)
+Python 3.12 · Flask · SQLAlchemy · Flask-WTF · PostgreSQL · HTML, CSS e JavaScript · pytest · Render (hospedagem) · Neon (banco)
 
 Arquitetura em camadas no padrão **MVC**. Detalhes em [docs/situacao-2/arquitetura.md](docs/situacao-2/arquitetura.md).
 
@@ -59,8 +61,8 @@ docs/
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python wsgi.py     # http://127.0.0.1:5000 (usa SQLite local)
-pytest             # 21 testes
+flask --app wsgi run --port 5050   # http://127.0.0.1:5050 (usa SQLite local)
+pytest                             # 36 testes
 ```
 
 ## Publicação

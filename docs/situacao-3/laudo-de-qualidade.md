@@ -16,8 +16,8 @@
 
 Resultado do `pytest` antes e depois das correções (colar o print do terminal):
 
-- Antes: 21 testes, 21 aprovados.
-- Depois: ___ testes, ___ aprovados.
+- Antes das correções: 21 testes, 21 aprovados.
+- Depois das correções: 36 testes, 36 aprovados.
 
 ## Problemas encontrados e correções
 

@@ -14,6 +14,8 @@ flowchart LR
         uc4(("Ver detalhes"))
         uc5(("Editar ocorrência"))
         uc6(("Excluir ocorrência"))
+        uc7(("Buscar por palavra"))
+        uc8(("Compartilhar no WhatsApp"))
     end
     morador --- uc1
     morador --- uc2
@@ -21,6 +23,8 @@ flowchart LR
     morador --- uc5
     morador --- uc6
     uc3 -. "extend" .-> uc2
+    uc7 -. "extend" .-> uc2
+    uc8 -. "extend" .-> uc4
 ```
 
 ## Caso de uso expandido: Registrar ocorrência
@@ -28,9 +32,10 @@ flowchart LR
 | Item | Descrição |
 |---|---|
 | Ator | Morador |
-| Pré-condição | Nenhuma (o sistema não exige login nesta versão) |
+| Pré-condição | Nenhuma (o sistema não exige login nesta versão). A data e a hora já vêm preenchidas com o momento atual. |
 | Fluxo principal | 1. O morador clica em "+ Registrar". 2. O sistema mostra o formulário. 3. O morador preenche tipo, data e hora, local, descrição e, se quiser, o nome. 4. O morador clica em "Salvar". 5. O sistema valida os dados e grava a ocorrência. 6. O sistema mostra os detalhes com a mensagem "Ocorrência registrada com sucesso." |
-| Fluxo alternativo A | No passo 5, se algum dado for inválido, o sistema mostra a lista de erros e mantém o que já foi digitado. |
+| Fluxo alternativo A | No passo 5, se algum dado for inválido, o sistema mostra todos os erros juntos e mantém o que já foi digitado. |
+| Fluxo alternativo C | No passo 4, o botão Salvar fica travado depois do primeiro clique, evitando registros duplicados. |
 | Fluxo alternativo B | No passo 3, se o nome ficar em branco, a ocorrência é gravada como "Anônimo". |
 | Pós-condição | A ocorrência aparece na lista. |
 
@@ -46,6 +51,9 @@ classDiagram
         +datetime data_ocorrencia
         +str registrado_por
         +datetime criado_em
+        +datetime atualizado_em
+        +classe_tipo() str
+        +eh_nova() bool
         +validar(dados) tuple$
         +como_formulario() dict
     }

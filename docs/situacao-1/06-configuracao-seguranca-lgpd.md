@@ -13,10 +13,16 @@
 |---|---|
 | Injeção de SQL | Todas as consultas passam pelo ORM SQLAlchemy, que usa parâmetros e não concatena texto. |
 | Injeção de HTML/JavaScript | Os templates Jinja escapam automaticamente o conteúdo digitado pelos usuários. |
-| Exclusão por link | A exclusão só aceita POST e pede confirmação antes. |
+| Exclusão por link | A exclusão só aceita POST e pede confirmação antes. Abrir o endereço de exclusão direto mostra a página de erro do sistema (405). |
+| CSRF (formulário enviado por outro site) | Todos os formulários levam um token gerado pelo Flask-WTF (`CSRFProtect`); envio sem o token é recusado. |
+| Envio duplicado | O botão Salvar trava depois do primeiro clique. |
 | Senhas e chaves no código | A URL do banco e a chave secreta ficam em variáveis de ambiente, fora do repositório. |
 
-**Limitações conhecidas (versões futuras):** não há login, então qualquer pessoa com o link pode editar ou excluir ocorrências; não há proteção contra CSRF.
+**Limitações conhecidas (versões futuras):**
+- Não há login: qualquer pessoa com o link pode editar ou excluir ocorrências (issue #7).
+- O nome é texto livre, então é possível registrar em nome de outra pessoa (depende do login).
+- Não há limite de envios por pessoa (proteção contra spam).
+- A exclusão é definitiva, sem histórico para recuperar.
 
 ## LGPD
 
