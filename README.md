@@ -5,8 +5,8 @@ Sistema web para o grupo de vizinhos da Colônia Dom Pedro II (Campo Largo/PR) r
 Projeto Integrador Transdisciplinar em Engenharia de Software II, de Guilherme Silvano de Ramos.
 
 - **Sistema em funcionamento:** https://alerta-vizinhos.onrender.com
-- **Vídeo da solução:** [LINK DO VÍDEO 1]
-- **Vídeo da solução atualizada:** [LINK DO VÍDEO 2]
+- **Vídeo da solução:** https://www.youtube.com/watch?v=2sIyQHFzxXU
+- **Vídeo da solução atualizada:** https://www.youtube.com/watch?v=47qYpWbJUEU
 
 ## Funcionalidades
 
